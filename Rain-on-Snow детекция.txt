@@ -1,0 +1,58 @@
+В ячейке [`Dara/permafrost_analysis.ipynb`](Dara/permafrost_analysis.ipynb:1017) выполняется поиск событий **Rain-on-Snow**, то есть ситуаций, когда дождь/осадки выпадают поверх уже существующего снежного покрова.
+
+Что делает код:
+
+1. Определяет функцию [`detect_rain_on_snow()`](Dara/permafrost_analysis.ipynb:1050), которая принимает:
+   - данные по воздуху [`df_air`](Dara/permafrost_analysis.ipynb:1050);
+   - данные по снегу [`df_snow`](Dara/permafrost_analysis.ipynb:1050);
+   - идентификатор метеостанции [`station_id`](Dara/permafrost_analysis.ipynb:1051).
+
+2. Для выбранной станции берёт из метеоданных только нужные колонки:
+   - [`date`](Dara/permafrost_analysis.ipynb:1053) — дата;
+   - [`tmin`](Dara/permafrost_analysis.ipynb:1053) — минимальная температура;
+   - [`tmean`](Dara/permafrost_analysis.ipynb:1053) — средняя температура;
+   - [`precip_mm`](Dara/permafrost_analysis.ipynb:1053) — осадки в мм.
+
+3. Из снегомерных данных берёт:
+   - [`date`](Dara/permafrost_analysis.ipynb:1054);
+   - [`snow_depth_cm`](Dara/permafrost_analysis.ipynb:1054) — высота снежного покрова в см.
+
+4. Объединяет данные воздуха и снега по дате через [`merge()`](Dara/permafrost_analysis.ipynb:1055). Остаются только дни, для которых есть и метеоданные, и данные по снегу.
+
+5. Добавляет номер месяца в колонку [`month`](Dara/permafrost_analysis.ipynb:1056).
+
+6. Фильтрует дни, которые считаются событиями Rain-on-Snow. Условия такие:
+   - месяц **не с мая по сентябрь**, то есть холодный сезон: [`~df['month'].between(5, 9)`](Dara/permafrost_analysis.ipynb:1058);
+   - средняя температура выше нуля: [`df['tmean'] > 0`](Dara/permafrost_analysis.ipynb:1059);
+   - осадки больше 1 мм: [`df['precip_mm'] > 1`](Dara/permafrost_analysis.ipynb:1060);
+   - снежный покров больше 5 см: [`df['snow_depth_cm'] > 5`](Dara/permafrost_analysis.ipynb:1061).
+
+7. Для найденных событий добавляет колонку [`station_id`](Dara/permafrost_analysis.ipynb:1063) и возвращает таблицу событий.
+
+8. Затем код проходит по станциям профиля Лены [`LENA_PROFILE`](Dara/permafrost_analysis.ipynb:1072):
+   - Киренск;
+   - Олёкминск;
+   - Якутск;
+   - Жиганск.
+
+9. Для каждой станции проверяет, есть ли одновременно данные воздуха и снега: [`sid in avail_air and sid in avail_snow`](Dara/permafrost_analysis.ipynb:1074).
+
+10. Если данные есть, запускает детекцию, добавляет название станции в [`station_name`](Dara/permafrost_analysis.ipynb:1076), сохраняет результат и печатает количество событий.
+
+По текущему выводу ячейки найдено:
+
+- Киренск — **135** событий;
+- Олёкминск — **70** событий;
+- Якутск — **29** событий;
+- Жиганск — **44** события;
+- всего — **278** событий [`ros_events`](Dara/permafrost_analysis.ipynb:1082).
+
+В конце выводятся первые 6 найденных событий с колонками:
+
+- [`station_name`](Dara/permafrost_analysis.ipynb:1085);
+- [`date`](Dara/permafrost_analysis.ipynb:1085);
+- [`tmean`](Dara/permafrost_analysis.ipynb:1085);
+- [`precip_mm`](Dara/permafrost_analysis.ipynb:1085);
+- [`snow_depth_cm`](Dara/permafrost_analysis.ipynb:1085).
+
+Коротко: ячейка ищет дни холодного сезона, когда было **теплее 0°C**, выпали **осадки больше 1 мм**, и при этом уже лежал **снег глубже 5 см**. Такие дни считаются комбинированным триггером Rain-on-Snow, потенциально важным для заторов, наледей и паводковых рисков.
