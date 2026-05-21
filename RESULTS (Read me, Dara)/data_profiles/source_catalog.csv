@@ -1,0 +1,8 @@
+﻿source_group,source_path,file_format,primary_time_grain,geographic_scope,expected_period,key_parameters,units,notes
+air,data/air/wr373144a2/wr373144a2.txt,txt,daily,station 37314,historical observations,"air temperature, meteorological indicators",mixed,Raw Roshydromet export
+snow,data/snow/wr373144a5/wr373144a5.txt,txt,daily,station 37314,historical observations,"snow depth, snow cover indicators",mixed,Raw Roshydromet export
+soil,data/soil/wr373144a3/wr373144a3.txt,txt,daily,station 37314,historical observations,soil temperature by depth,degC,Raw Roshydromet export
+hydro,data/hydro/lena-*.csv,csv,daily,Lena River gauges,"varies by station, multi-year daily",water level,cm,One file per gauge
+sts,data/СТС.csv,csv,annual,Yakutia sites,multi-year annual,active layer / permafrost related annual metrics,mixed,Wide table with year columns
+mchs,data/mchs_events.csv,csv,event-based,Yakutia,multi-year events,emergency events attributes,mixed,Incident-level records
+mchs,data/mchs_events_lena_bank.csv,csv,event-based,Lena river bank zone,multi-year events,emergency events attributes,mixed,Incident-level records for Lena bank
