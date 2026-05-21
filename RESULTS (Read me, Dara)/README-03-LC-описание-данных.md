@@ -43,37 +43,31 @@
 
 Примечание по структуре главы: блок «Структура полей» должен занимать вторичную роль. Основной объем описания рекомендуется строить вокруг источника, полноты, распределений и устойчивости статистик.
 
-## Описание исходных данных: как описывать в тексте главы
+## Описание исходных данных (готовый текст для главы)
 
-Ниже минимальный формат, который можно использовать для каждого набора данных в Главе 2.
+### Температура воздуха и осадки
 
-1. Какой параметр:
-	что измеряется физически (например, температура воздуха, осадки, высота снега, уровень воды, глубина сезонного протаивания),
-	в каких единицах,
-	какой шаг наблюдения (день, месяц, год).
-2. В каком городе/пункте:
-	для какой станции, города или гидропоста приведен параметр,
-	как этот пункт связан с задачей (верховье, целевой пункт прогноза, контрольный пункт).
-3. За какой период есть данные:
-	начальный и конечный годы,
-	особенности периода (неполные годы, сезонное окно, отбор 2008-2023 для сопоставимости).
-4. Какие графики строятся:
-	ряд во времени,
-	сезонные/годовые пики,
-	сравнение станций,
-	лаговые графики относительно Якутска,
-	корреляционные матрицы по постам.
-5. Какие статистические показатели приводятся:
-	среднее, медиана, минимум, максимум,
-	стандартное отклонение,
-	квантили (P90, P95, P99),
-	коэффициент вариации,
-	z-оценки для аномалий,
-	разброс по годам (диапазон и межквартильный размах).
+Параметры температуры воздуха и осадков получены из исходного ряда [data/air/wr373144a2/wr373144a2.txt](data/air/wr373144a2/wr373144a2.txt) с суточным шагом. Для расчетного контура использованы станции ленского профиля и контрольные станции, а для сопоставимого анализа аномалий принят период 2008-2023. По этим данным построены суточные и месячные аномальные витрины [RESULTS (Read me, Dara)/data_tables/daily_anomalies_operational.csv](RESULTS%20(Read%20me,%20Dara)/data_tables/daily_anomalies_operational.csv) и [RESULTS (Read me, Dara)/data_tables/monthly_anomalies_operational.csv](RESULTS%20(Read%20me,%20Dara)/data_tables/monthly_anomalies_operational.csv), а также обзорный график аномалий [RESULTS (Read me, Dara)/plots/anomalies_overview.png](RESULTS%20(Read%20me,%20Dara)/plots/anomalies_overview.png). В расчетах используются z-оценки, пороги P95/P99, интегральные баллы risk_points и категория severity, что позволяет одновременно оценивать уровень, разброс и экстремальность температурно-осадочных сигналов.
 
-Рекомендуемая формула одного абзаца описания:
+### Снежный покров
 
-«Параметр <название> по пункту <город/станция> анализируется за период <годы>, шаг <день/месяц/год>. Для визуального анализа построены <тип графиков>. По выборке рассчитаны <список метрик>, что позволяет оценить уровень, изменчивость и аномальные отклонения параметра».
+Параметры снежного покрова (высота снега и производные зимние показатели) получены из ряда [data/snow/wr373144a5/wr373144a5.txt](data/snow/wr373144a5/wr373144a5.txt) с суточным шагом. Для анализа принята сквозная сезонная логика зимы (октябрь-апрель) и период сопоставления 2008-2023. На основе этих данных рассчитываются max_snow_depth, winter_thaw_days и ROS-сигналы, которые входят в оперативные и годовые индикаторы риска. Качество и полнота источников зафиксированы в [RESULTS (Read me, Dara)/data_profiles/source_catalog.csv](RESULTS%20(Read%20me,%20Dara)/data_profiles/source_catalog.csv) и [RESULTS (Read me, Dara)/data_profiles/completeness_report.csv](RESULTS%20(Read%20me,%20Dara)/data_profiles/completeness_report.csv).
+
+### Температура грунта
+
+Параметры температуры грунта по глубинам получены из ряда [data/soil/wr373144a3/wr373144a3.txt](data/soil/wr373144a3/wr373144a3.txt) с суточным шагом. Эти данные используются для мерзлотного контура (оценка трендов прогрева, интерпретация устойчивости оснований, калибровка связей с сезонным протаиванием). В визуальной части результаты представлены через графики деградации мерзлоты в папке plots, а в расчетной части включены в сценарный контур через агрегированные показатели. Источник и его атрибуты отражены в [RESULTS (Read me, Dara)/data_profiles/source_catalog.csv](RESULTS%20(Read%20me,%20Dara)/data_profiles/source_catalog.csv).
+
+### Уровни воды по гидропостам Лены
+
+Гидрологические параметры получены из суточных рядов [data/hydro/lena-*.csv](data/hydro) для 9 гидропостов ленского профиля (Киренск, Витим, Ленск, Олёкминск, Покровск, Якутск, Табага, Сангар, Жиганск). Для сопоставимого анализа используется период 2008-2023, а в витрине сформированы [RESULTS (Read me, Dara)/data_tables/water_level_annual_features.csv](RESULTS%20(Read%20me,%20Dara)/data_tables/water_level_annual_features.csv), [RESULTS (Read me, Dara)/data_tables/water_level_monthly_corr.csv](RESULTS%20(Read%20me,%20Dara)/data_tables/water_level_monthly_corr.csv), [RESULTS (Read me, Dara)/data_tables/water_level_peak_lags_yakutsk.csv](RESULTS%20(Read%20me,%20Dara)/data_tables/water_level_peak_lags_yakutsk.csv) и [RESULTS (Read me, Dara)/data_tables/lena_lag.csv](RESULTS%20(Read%20me,%20Dara)/data_tables/lena_lag.csv). Для Якутска в витринной сводке зафиксированы характерные статистики весенних пиков (максимум 854 см, среднее около 648.6 см), а пространственные связи между постами оцениваются корреляционной матрицей и лаговыми характеристиками. Графики: [RESULTS (Read me, Dara)/plots/water_level_spring_peaks.png](RESULTS%20(Read%20me,%20Dara)/plots/water_level_spring_peaks.png) и [RESULTS (Read me, Dara)/plots/water_level_peak_lags_yakutsk.png](RESULTS%20(Read%20me,%20Dara)/plots/water_level_peak_lags_yakutsk.png).
+
+### Глубина сезонного протаивания (СТС/ALT)
+
+Параметры глубины сезонного протаивания получены из исходной таблицы [data/СТС.csv](data/%D0%A1%D0%A2%D0%A1.csv) в широком годовом формате (колонки 1990-2025). На витрине используется [RESULTS (Read me, Dara)/data_tables/СТС.csv](RESULTS%20(Read%20me,%20Dara)/data_tables/%D0%A1%D0%A2%D0%A1.csv). Для этого источника в профилях рассчитаны распределения по каждому году, включая min, p05, median, mean, p95, max, std и IQR: [RESULTS (Read me, Dara)/data_profiles/value_stats_raw.csv](RESULTS%20(Read%20me,%20Dara)/data_profiles/value_stats_raw.csv). Полнота сильно неоднородна по площадкам и отражена в [RESULTS (Read me, Dara)/data_profiles/completeness_report.csv](RESULTS%20(Read%20me,%20Dara)/data_profiles/completeness_report.csv), что учитывается при интерпретации межгодовых трендов и сценарных выводов.
+
+### Архивы чрезвычайных ситуаций (ЧС)
+
+Событийные данные ЧС представлены источниками [data/mchs_events.csv](data/mchs_events.csv) и [data/mchs_events_lena_bank.csv](data/mchs_events_lena_bank.csv) с событийным шагом (дата начала/окончания, тип, локация). В расчетной витрине используются [RESULTS (Read me, Dara)/data_tables/mchs_events.csv](RESULTS%20(Read%20me,%20Dara)/data_tables/mchs_events.csv) и [RESULTS (Read me, Dara)/data_tables/mchs_events_lena_bank.csv](RESULTS%20(Read%20me,%20Dara)/data_tables/mchs_events_lena_bank.csv). По текущей витринной сводке архив включает 79 событий в общей базе и 17 событий для ленской береговой зоны за 2008-2023, что формирует целевую переменную для лагового сопоставления с аномалиями. Годовая событийная полнота отражена в [RESULTS (Read me, Dara)/data_profiles/completeness_report.csv](RESULTS%20(Read%20me,%20Dara)/data_profiles/completeness_report.csv), а связка «аномалия -> ЧС» зафиксирована в [RESULTS (Read me, Dara)/data_tables/anomaly_chs_linked.csv](RESULTS%20(Read%20me,%20Dara)/data_tables/anomaly_chs_linked.csv).
 
 ## 1. Что такое LC-метод в данном проекте
 
