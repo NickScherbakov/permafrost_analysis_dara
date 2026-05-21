@@ -75,6 +75,96 @@
 	[RESULTS (Read me, Dara)/data_profiles/transformations_log.csv](RESULTS%20(Read%20me,%20Dara)/data_profiles/transformations_log.csv).
 3. Списки полей в таблицах сохранены как справочный уровень, но не как основной смысловой уровень описания.
 
+## Вопрос 4. Причина в роли ноутбуков в пайплайне: опишите пайплайн и роли всех ноутбуков и скриптов
+
+Ниже приведен полный рабочий пайплайн проекта с распределением ролей по ноутбукам и скриптам.
+
+### Ответ 4.1. Сквозной пайплайн данных
+
+```mermaid
+flowchart LR
+	A[data raw: air/snow/soil/hydro/STS/MCHS] --> B[NOPik/permafrost_analysis.ipynb\nEDA + feature engineering + LC calculations]
+	B --> C[intermediate outputs: data + результаты]
+	C --> D[copy_results.py\npackage to RESULTS/data_tables + RESULTS/plots]
+	D --> E[RESULTS/permafrost_analysis_notebook.ipynb\nshowcase verification + interpretation]
+	A --> F[data_profiles\nsource_catalog/value_stats/completeness/transformations]
+	B --> G[data/permafrost_model/*.py\nALT + thermal trend + hydro propagation + DSS]
+	G --> H[data/run_dss.py + data/verify_models.py]
+```
+
+1. Слой источников (raw): файлы в [data](data) — метеорология air/snow/soil, гидропосты hydro, СТС, архивы ЧС.
+2. Слой разведки и формирования признаков: основной ноутбук [NOPik/permafrost_analysis.ipynb](NOPik/permafrost_analysis.ipynb).
+3. Слой промежуточных расчетных результатов: таблицы и графики в [результаты](результаты) и [data](data).
+4. Слой упаковки в витрину: перенос итоговых таблиц/графиков в [RESULTS (Read me, Dara)/data_tables](RESULTS%20(Read%20me,%20Dara)/data_tables) и [RESULTS (Read me, Dara)/plots](RESULTS%20(Read%20me,%20Dara)/plots) через [RESULTS (Read me, Dara)/reproduction_scripts/copy_results.py](RESULTS%20(Read%20me,%20Dara)/reproduction_scripts/copy_results.py).
+5. Слой верификации и интерпретации витрины: [RESULTS (Read me, Dara)/permafrost_analysis_notebook.ipynb](RESULTS%20(Read%20me,%20Dara)/permafrost_analysis_notebook.ipynb).
+6. Слой профильной витрины качества источников: [RESULTS (Read me, Dara)/data_profiles](RESULTS%20(Read%20me,%20Dara)/data_profiles).
+
+### Ответ 4.2. Роли всех ноутбуков
+
+1. [NOPik/permafrost_analysis.ipynb](NOPik/permafrost_analysis.ipynb)
+	Главный вычислительный ноутбук: парсинг исходных данных, расчет индикаторов, аномалий, лагов, формирование таблиц и части графиков.
+2. [NOPik/LENA_CHS_ANALYSIS.ipynb](NOPik/LENA_CHS_ANALYSIS.ipynb)
+	Тематический ноутбук по связям ЧС и ленского гидрологического профиля; дополняет основной анализ кейсами по ЧС.
+3. [RESULTS (Read me, Dara)/permafrost_analysis_notebook.ipynb](RESULTS%20(Read%20me,%20Dara)/permafrost_analysis_notebook.ipynb)
+	Витринный ноутбук: проверка состава data_tables, воспроизведение ключевых итогов и презентационная интерпретация.
+
+### Ответ 4.3. Роли всех скриптов
+
+#### Скрипты в reproduction_scripts
+
+1. [RESULTS (Read me, Dara)/reproduction_scripts/explore_data.py](RESULTS%20(Read%20me,%20Dara)/reproduction_scripts/explore_data.py)
+	Первичная разведка структуры исходных файлов.
+2. [RESULTS (Read me, Dara)/reproduction_scripts/inspect_columns.py](RESULTS%20(Read%20me,%20Dara)/reproduction_scripts/inspect_columns.py)
+	Проверка и унификация колонок/полей.
+3. [RESULTS (Read me, Dara)/reproduction_scripts/inspect_anomalies.py](RESULTS%20(Read%20me,%20Dara)/reproduction_scripts/inspect_anomalies.py)
+	Диагностика и обзор аномалий/ЧС.
+4. [RESULTS (Read me, Dara)/reproduction_scripts/match_alt_stations.py](RESULTS%20(Read%20me,%20Dara)/reproduction_scripts/match_alt_stations.py)
+	Сопоставление площадок ALT/СТС со станциями.
+5. [RESULTS (Read me, Dara)/reproduction_scripts/inspect_specific_sites.py](RESULTS%20(Read%20me,%20Dara)/reproduction_scripts/inspect_specific_sites.py)
+	Локальная проверка выбранных площадок/станций.
+6. [RESULTS (Read me, Dara)/reproduction_scripts/inspect_sample_data.py](RESULTS%20(Read%20me,%20Dara)/reproduction_scripts/inspect_sample_data.py)
+	Контроль корректности примеров исходных рядов.
+7. [RESULTS (Read me, Dara)/reproduction_scripts/inspect_fixed_width.py](RESULTS%20(Read%20me,%20Dara)/reproduction_scripts/inspect_fixed_width.py)
+	Проверка fixed-width форматов.
+8. [RESULTS (Read me, Dara)/reproduction_scripts/test_fixed_slices.py](RESULTS%20(Read%20me,%20Dara)/reproduction_scripts/test_fixed_slices.py)
+	Тестирование правил разреза fixed-width строк.
+9. [RESULTS (Read me, Dara)/reproduction_scripts/inspect_met_coverage.py](RESULTS%20(Read%20me,%20Dara)/reproduction_scripts/inspect_met_coverage.py)
+	Оценка метеорологического покрытия по станциям/периодам.
+10. [RESULTS (Read me, Dara)/reproduction_scripts/read_mes.py](RESULTS%20(Read%20me,%20Dara)/reproduction_scripts/read_mes.py)
+	 Утилитарное чтение и разбор вспомогательных текстовых материалов.
+11. [RESULTS (Read me, Dara)/reproduction_scripts/train_alt_model.py](RESULTS%20(Read%20me,%20Dara)/reproduction_scripts/train_alt_model.py)
+	 Обучение/оценка моделей ALT.
+12. [RESULTS (Read me, Dara)/reproduction_scripts/calibrate_stefan.py](RESULTS%20(Read%20me,%20Dara)/reproduction_scripts/calibrate_stefan.py)
+	 Калибровка моделей Стефана.
+13. [RESULTS (Read me, Dara)/reproduction_scripts/analyze_soil_warming.py](RESULTS%20(Read%20me,%20Dara)/reproduction_scripts/analyze_soil_warming.py)
+	 Анализ трендов потепления грунта.
+14. [RESULTS (Read me, Dara)/reproduction_scripts/analyze_hydro.py](RESULTS%20(Read%20me,%20Dara)/reproduction_scripts/analyze_hydro.py)
+	 Анализ гидропиков и лагов прохождения волны.
+15. [RESULTS (Read me, Dara)/reproduction_scripts/inspect_existing_results.py](RESULTS%20(Read%20me,%20Dara)/reproduction_scripts/inspect_existing_results.py)
+	 Проверка структуры сформированных результатов.
+16. [RESULTS (Read me, Dara)/reproduction_scripts/copy_results.py](RESULTS%20(Read%20me,%20Dara)/reproduction_scripts/copy_results.py)
+	 Витринная упаковка: перенос таблиц/графиков в каталог RESULTS.
+17. [RESULTS (Read me, Dara)/reproduction_scripts/find_ipynb.py](RESULTS%20(Read%20me,%20Dara)/reproduction_scripts/find_ipynb.py)
+	 Служебный поиск ноутбуков для воспроизводимости маршрута анализа.
+
+#### Скрипты в data
+
+1. [data/run_dss.py](data/run_dss.py)
+	Интерактивный запуск DSS-сценариев на основе рассчитанных моделей.
+2. [data/verify_models.py](data/verify_models.py)
+	Проверка корректности модельных расчетов и тестовые проверки.
+3. [data/generate_plots.py](data/generate_plots.py)
+	Генерация визуализаций по расчетным данным.
+
+#### Модульное ядро моделей
+
+1. [data/permafrost_model/alt_solver.py](data/permafrost_model/alt_solver.py)
+2. [data/permafrost_model/thermal_trend.py](data/permafrost_model/thermal_trend.py)
+3. [data/permafrost_model/hydro_propagation.py](data/permafrost_model/hydro_propagation.py)
+4. [data/permafrost_model/dss.py](data/permafrost_model/dss.py)
+
+Эти модули реализуют математические функции, которые вызываются в сценарных и аналитических скриптах.
+
 ## Приложение A. LC-метод и детальные таблицы
 
 ## A1. Что такое LC-метод в данном проекте
