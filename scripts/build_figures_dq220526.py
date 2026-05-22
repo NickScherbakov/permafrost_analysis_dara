@@ -230,7 +230,15 @@ def build_demo_data() -> dict:
             }
         )
 
-    water_chs = [{"year": str(y), "hydro_extreme_share": str(0.2 + ((y - YEAR_START) % 5) * 0.1), "chs_count": str((y - YEAR_START) % 3)} for y in YEARS]
+    water_chs = []
+    for y in YEARS:
+        water_chs.append(
+            {
+                "year": str(y),
+                "hydro_extreme_share": str(0.2 + ((y - YEAR_START) % 5) * 0.1),
+                "chs_count": str((y - YEAR_START) % 3),
+            }
+        )
 
     mchs = []
     for y in YEARS:
@@ -328,7 +336,7 @@ def fig_hydropost_peaks(water_features: list[dict[str, str]], output_dir: Path) 
                 continue
             accum[post].append(val)
 
-    posts = [p for p in HYDRO_POST_ORDER if p in accum]
+    posts = [p for p in HYDRO_POST_ORDER if p in accum and len(accum[p]) > 0]
     means = [sum(accum[p]) / len(accum[p]) for p in posts]
 
     fig, ax = plt.subplots(figsize=(10, 5))
@@ -361,7 +369,7 @@ def fig_peak_lags(peak_lags: list[dict[str, str]], output_dir: Path) -> None:
             except ValueError:
                 continue
 
-    posts = [p for p in HYDRO_POST_ORDER if p in vals and p != "Якутск"]
+    posts = [p for p in HYDRO_POST_ORDER if p in vals and p != "Якутск" and len(vals[p]) > 0]
     means = [sum(vals[p]) / len(vals[p]) for p in posts]
 
     fig, ax = plt.subplots(figsize=(10, 5))
