@@ -385,6 +385,12 @@ def fig_hydro_share_vs_chs(water_chs: list[dict[str, str]], output_dir: Path) ->
         shares.append(float(row["hydro_extreme_share"]))
         chs.append(float(row["chs_count"]))
 
+    if not years:
+        fail(
+            "После фильтрации по периоду 2008–2023 не осталось данных в "
+            "water_chs_link_by_year.csv для построения рис. 2.11"
+        )
+
     years, shares, chs = zip(*sorted(zip(years, shares, chs), key=lambda x: x[0]))
 
     fig, ax1 = plt.subplots(figsize=(10, 4.5))
