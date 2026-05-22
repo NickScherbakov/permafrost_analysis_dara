@@ -391,7 +391,8 @@ def fig_hydro_share_vs_chs(water_chs: list[dict[str, str]], output_dir: Path) ->
             "water_chs_link_by_year.csv для построения рис. 2.11"
         )
 
-    years, shares, chs = zip(*sorted(zip(years, shares, chs), key=lambda x: x[0]))
+    data_points = sorted(zip(years, shares, chs), key=lambda x: x[0])
+    years, shares, chs = zip(*data_points)
 
     fig, ax1 = plt.subplots(figsize=(10, 4.5))
     ax1.plot(years, shares, color="#2a9d8f", marker="o", label="Доля экстремумов")
