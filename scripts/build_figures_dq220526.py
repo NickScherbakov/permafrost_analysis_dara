@@ -336,8 +336,14 @@ def fig_hydropost_peaks(water_features: list[dict[str, str]], output_dir: Path) 
                 continue
             accum[post].append(val)
 
-    posts = [p for p in HYDRO_POST_ORDER if p in accum and len(accum[p]) > 0]
-    means = [sum(accum[p]) / len(accum[p]) for p in posts]
+    posts = []
+    means = []
+    for post in HYDRO_POST_ORDER:
+        series = accum.get(post, [])
+        if not series:
+            continue
+        posts.append(post)
+        means.append(sum(series) / len(series))
 
     fig, ax = plt.subplots(figsize=(10, 5))
     ax.bar(posts, means, color="#457b9d")
@@ -369,8 +375,16 @@ def fig_peak_lags(peak_lags: list[dict[str, str]], output_dir: Path) -> None:
             except ValueError:
                 continue
 
-    posts = [p for p in HYDRO_POST_ORDER if p in vals and p != "Якутск" and len(vals[p]) > 0]
-    means = [sum(vals[p]) / len(vals[p]) for p in posts]
+    posts = []
+    means = []
+    for post in HYDRO_POST_ORDER:
+        if post == "Якутск":
+            continue
+        series = vals.get(post, [])
+        if not series:
+            continue
+        posts.append(post)
+        means.append(sum(series) / len(series))
 
     fig, ax = plt.subplots(figsize=(10, 5))
     ax.bar(posts, means, color="#1d3557")
