@@ -1,0 +1,13 @@
+﻿target_table,source_data,transformation_summary,implementation_reference
+RESULTS/data_tables/daily_anomalies_operational.csv,data/*,Derived operational table from project source datasets.,NOPik/permafrost_analysis.ipynb; copy_results.py
+RESULTS/data_tables/monthly_anomalies_operational.csv,data/*,Derived operational table from project source datasets.,NOPik/permafrost_analysis.ipynb; copy_results.py
+RESULTS/data_tables/mchs_events.csv,data/mchs_events.csv,Normalize event dates/attributes and export event-level emergency dataset.,NOPik/permafrost_analysis.ipynb; copy_results.py
+RESULTS/data_tables/mchs_events_lena_bank.csv,data/mchs_events_lena_bank.csv,Filter and standardize Lena-bank emergency event records for downstream analytics.,NOPik/permafrost_analysis.ipynb; copy_results.py
+RESULTS/data_tables/water_level_annual_features.csv,data/hydro/lena-*.csv,Aggregate daily gauge levels into annual/monthly/lag-based river level features.,NOPik/permafrost_analysis.ipynb; copy_results.py
+RESULTS/data_tables/water_level_monthly_corr.csv,data/hydro/lena-*.csv,Aggregate daily gauge levels into annual/monthly/lag-based river level features.,NOPik/permafrost_analysis.ipynb; copy_results.py
+RESULTS/data_tables/water_level_peak_lags_yakutsk.csv,data/hydro/lena-*.csv,Aggregate daily gauge levels into annual/monthly/lag-based river level features.,NOPik/permafrost_analysis.ipynb; copy_results.py
+RESULTS/data_tables/water_level_peak_lags_якутск.csv,data/hydro/lena-*.csv,Aggregate daily gauge levels into annual/monthly/lag-based river level features.,NOPik/permafrost_analysis.ipynb; copy_results.py
+RESULTS/data_tables/lena_lag.csv,data/hydro/lena-*.csv,Aggregate daily gauge levels into annual/monthly/lag-based river level features.,NOPik/permafrost_analysis.ipynb; copy_results.py
+RESULTS/data_tables/scenario_annual.csv,data/daily_anomalies_operational.csv + data/hydro/lena-*.csv + data/СТС.csv,"Build annual scenario feature set from anomaly, hydro and STS inputs.",NOPik/permafrost_analysis.ipynb; copy_results.py
+RESULTS/data_tables/anomaly_chs_linked.csv,data/daily_anomalies_operational.csv + data/monthly_anomalies_operational.csv + data/mchs_events.csv,Join anomaly indicators with CHS/event signals and compute linked anomaly-event outputs.,NOPik/permafrost_analysis.ipynb; copy_results.py
+RESULTS/data_tables/СТС.csv,data/СТС.csv,Carry through annual per-site STS table with cleaned headers and typing.,NOPik/permafrost_analysis.ipynb; copy_results.py
