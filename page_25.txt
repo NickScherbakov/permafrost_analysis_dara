@@ -1,0 +1,27 @@
+25 
+ 
+ 
+Business uncertainty analysis using LC-curves  
+Fuad T. Aleskerov1, Inna S. Lola1*, Dmitriy G. Asoskov1, Daria A. Zabelina1, Rita 
+D. Nazarova1 
+1National Research University Higher School of Economics (Moscow, Russia) 
+*Corresponding author, email: ilola@hse.ru 
+The LC-curve method, a new approach to time series analysis, was applied to 
+the composite Business Uncertainty Index ( BUI), based on the results of regular 
+Rosstat business surveys, which made it possible to analyze uncertainty trajectories 
+across Russia's enlarged industries and sub -sectors using two index specifications: 
+ex-ante (forecast) and ex-post (actual). The results of the empirical analysis for the 
+period 2020-2024 have shown the high sensitivity of LC -curves to shocks of the 
+business environment, their relevance for assessing the stages of business activity in 
+various industries. Thus, both crisis periods included in the time interval of the study, 
+namely 2020 and 2022, were successfully identified in the dynamics of the plotted 
+curves, and it was shown that the pandemic had a more serious negative impact. At 
+the same time, according to their forecast dynamics, in 2025 the industry will enter 
+a phase of slowing growth. Special attention is paid to the analysis of medium-high 
+and high-tech industries, among which the industries that demonstrate the greatest 
+stability and potentially play a key role in the structural transformation of the 
+economy are highlighted.  
+Keywords: LC-curves, business uncertainty, time series.  
+JEL: C18, E32, C65 
+ 
+ 

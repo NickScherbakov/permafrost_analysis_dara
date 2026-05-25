@@ -1,0 +1,31 @@
+22 
+ 
+Список литературы 
+1. Алескеров Ф. Т., Голубенко М. А. (2003). Об оценке симметричности 
+политических взглядов и поляризованности общества.  (Препринт № 
+WP7/2003/04). М.: НИУ ВШЭ. [Aleskerov F.T., Golubenko M.A. (2003). 
+On assessing the symmetry of political views and societal polarization.  
+(Preprint No. WP7/2003/04). Moscow: Higher School of Economics. (In 
+Russian).] 
+2. Алескеров Ф.  Т., Вольский В.  И., Якуба В.  И. (2009). Применение 
+индексов симметричности и поляризованности для анализа динамики 
+потребления // 4 -я Международная конференция по проблемам 
+управления (МКПУ 2009, Москва). [Aleskerov F.T., V olskii V .I., Yakuba V .I. 
+(2009). Application of symmetry and polarization indices for analyzing 
+consumption dynamics. In: Proceedings of the 4th International Conference 
+on Control Problems (ICCP 2009). Moscow. (In Russian).] 
+3. Лола И. С., Мануков А. Б., Бакеев М. Б. (2020). Стресс -тестирование в 
+статистическом моделировании деловой активности в условиях шоков 
+конъюнктуры // Вопросы статистики, Т. 27, № 4, С. 5 –23. [Lola I. S., 
+Manukov A. B., Bakeev M. B. (2020). Stress testing in statistical modeling of 
+business activity in conditions of market shocks. Voprosy Statistiki, V ol. 27, 
+No. 4, pp. 5–23 (In Russian).] https://doi.org/10.34023/2313-6383-2020-27-
+4-5-23 
+4. Лола И. С., Бакеев М. Б., Мануков А. Б.  (2024). Новые измерители 
+неопределённости деловой среды в российской экономике // Вопросы 
+статистики. Т. 31. № 1. С. 5–21. [Lola I. S., Bakeev M. B., Manukov A. B. 
+(2024). New indicators of business uncertainty in the Russian 
+economy. Voprosy Statistiki, V ol. 31, No. 1, pp. 5–21 ( In Russian). ] 
+https://doi.org/10.34023/2313-6383-2024-31-1-5-21 
+5. Лола И. С. (2023). Методика построения отраслевых индикаторов 
+деловой неопределенности. М .: НИУ ВШЭ. [Lola I. S. 
